@@ -2,6 +2,20 @@
   border-radius: var(--d-border-radius) var(--d-border-radius) 0 0;
   box-shadow: var(--shadow-lg);
   background-color: var(--d-content-background);
+  border: none;
+  transform-origin: bottom center;
+  animation: composer-slide-up 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  
+  @keyframes composer-slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
   
   // Composer header
   .reply-area {
@@ -10,22 +24,146 @@
     .composer-fields {
       padding: var(--spacing-3) var(--spacing-4);
       border-bottom: 1px solid var(--neutral-200);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      
+      .title-and-category,
+      .category-input,
+      .title-input {
+        margin-bottom: 0;
+      }
+      
+      .mini-tag-chooser {
+        margin-bottom: 0;
+        width: auto;
+        flex: 1;
+        min-width: 150px;
+      }
+      
+      .composer-action-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 1rem;
+      }
+    }
+    
+    // Title input
+    .title-input {
+      .popup-tip {
+        margin-top: var(--spacing-1);
+        background: var(--accent-color);
+        color: white;
+        border-radius: var(--d-border-radius);
+        font-size: 0.75rem;
+        padding: var(--spacing-1) var(--spacing-2);
+        border: none;
+        box-shadow: var(--shadow);
+      }
     }
   }
   
   // Dropdown actions menu
   .select-kit.dropdown-select-box.composer-actions .select-kit-header {
-    border: 1px solid var(--neutral-300);
     background: var(--d-content-background);
+    border: 1px solid var(--neutral-300);
     border-radius: var(--d-border-radius);
+    transition: all 0.2s ease;
     
     &:hover {
       border-color: var(--accent-color);
+      transform: translateY(-1px);
       
       .d-icon {
         color: var(--accent-color);
       }
     }
+  }
+  
+  // Editor area
+  .d-editor {
+    border-radius: var(--d-border-radius) 0 0 0;
+    border: none;
+    
+    .d-editor-textarea-wrapper {
+      margin: 0;
+      
+      .d-editor-input {
+        background: var(--d-content-background);
+        padding: var(--spacing-3);
+        font-family: var(--font-family-sans);
+        color: var(--primary);
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        border: none;
+        
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+    }
+    
+    // Editor buttons
+    .d-editor-button-bar {
+      background: var(--neutral-50);
+      border-top: 1px solid var(--neutral-200);
+      border-bottom: 1px solid var(--neutral-200);
+      padding: var(--spacing-1) var(--spacing-2);
+      
+      .btn-icon {
+        margin-right: var(--spacing-1);
+        
+        .d-icon {
+          color: var(--neutral-600);
+          font-size: 1rem;
+          transition: all 0.2s ease;
+        }
+        
+        &:hover {
+          background-color: var(--neutral-200);
+          
+          .d-icon {
+            color: var(--accent-color);
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+  
+  // Preview area
+  .d-editor-preview-wrapper {
+    padding: var(--spacing-3);
+    
+    .d-editor-preview {
+      padding: 0;
+      
+      p {
+        margin-bottom: var(--spacing-3);
+      }
+    }
+  }
+  
+  // Footer buttons
+  .composer-bottom-right {
+    margin-right: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+    
+    .btn {
+      margin-left: var(--spacing-2);
+    }
+  }
+}
+
+// Composer when toggled to drafts
+#reply-control.draft {
+  border-radius: 0;
+  box-shadow: none;
+  
+  .composer-fields {
+    background: var(--background-color);
   }
 }
 
@@ -33,136 +171,90 @@
 #reply-control.hide-preview:not(.draft) {
   @media (min-width: 768px) {
     background: var(--d-content-background);
-    border-radius: var(--d-border-radius) var(--d-border-radius) 0 0;
-    
-    .grippie {
-      background: var(--neutral-200);
-      border-top: 1px solid var(--neutral-300);
-    }
-    
-    .user-selector,
-    .title-and-category {
-      padding: 0 var(--spacing-4);
-      width: calc(100% - var(--spacing-4) * 2);
-    }
-    
-    // Button bar
-    .d-editor-button-bar {
-      padding: var(--spacing-1) var(--spacing-4);
-      border: none;
-      border-bottom: 1px solid var(--neutral-200);
-    }
-    
-    // Editor area
-    .d-editor-input {
-      padding: var(--spacing-4);
-      font-family: var(--font-family-sans);
-      line-height: 1.6;
-    }
-    
-    &:has(.in-focus) .grippie {
-      background: var(--accent-color);
-    }
-    
-    // Reply area spacing
-    .reply-area {
-      padding-inline: 0;
-    }
-    
-    // Reply reference and submit panel
-    .reply-to,
-    .submit-panel {
-      padding-inline: var(--spacing-4);
-    }
-    
-    // Editor wrapper
-    .d-editor-textarea-wrapper {
-      border: 0;
-      border-bottom: 1px solid var(--neutral-200);
-      border-radius: 0;
-      
-      &.in-focus {
-        outline: 0;
-      }
-    }
   }
 }
 
-// Editor button styles
-.d-editor-button-bar {
-  .btn,
-  .toolbar-popup-menu-options {
-    border-radius: var(--d-border-radius);
-    
-    &:hover, 
-    &.is-expanded {
-      .discourse-no-touch & {
-        background: var(--neutral-100);
-        color: var(--primary);
-        
-        .d-icon {
-          color: var(--accent-color);
-        }
-        
-        // Select kit rows
-        .select-kit-row {
-          .d-icon {
-            color: var(--neutral-600);
-          }
-          
-          &:hover {
-            .d-icon {
-              color: var(--primary);
-            }
-          }
-        }
-      }
-    }
+// Hidden composer
+#reply-control.closed {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+// Composer controls
+.composer-controls {
+  position: absolute;
+  right: 0;
+  display: flex;
+  
+  button.toggle-toolbar {
+    order: 3;
   }
   
-  .toolbar-popup-menu-options.is-expanded {
-    border-radius: var(--d-border-radius);
+  button.toggle-preview {
+    order: 2;
   }
-}
-
-// Translation selector
-.discourse-no-touch .translation-selector-dropdown {
-  .select-kit-header.btn-default {
-    background: transparent;
-    border: 1px solid var(--neutral-300);
+  
+  button.toggle-fullscreen {
+    order: 1;
+  }
+  
+  .btn {
+    border-radius: 0;
+    padding: var(--spacing-2);
+    
+    .d-icon {
+      color: var(--neutral-600);
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
     
     &:hover {
-      border-color: var(--accent-color);
+      background-color: var(--neutral-100);
+      
+      .d-icon {
+        color: var(--accent-color);
+        transform: scale(1.1);
+      }
     }
   }
 }
 
-// Translation mode
-#reply-control.composer-action-add_translation {
-  .d-editor-preview .d-editor-translation-preview-wrapper {
-    border-color: var(--neutral-300);
-    border-radius: var(--d-border-radius);
-  }
+// Save draft bar
+.save-or-cancel {
+  margin-bottom: var(--spacing-2);
   
-  .d-editor-preview .d-editor-translation-preview-wrapper__header {
-    top: 6.5rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--neutral-100);
-    color: var(--primary);
+  .cancel {
+    padding: var(--spacing-1) var(--spacing-2);
     border-radius: var(--d-border-radius);
-    font-size: 0.875rem;
-  }
-  
-  .topic-title-translator input {
-    width: 100%;
-    max-width: 47vw;
-    border: 1px solid var(--neutral-300);
-    border-radius: var(--d-border-radius);
+    margin-right: var(--spacing-2);
     
-    &:focus {
-      border-color: var(--accent-color);
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.2);
+    &:hover {
+      background-color: var(--neutral-100);
     }
   }
+}
+
+// Upload dropzone
+.composer-popup {
+  background: var(--d-content-background);
+  border-radius: var(--d-border-radius);
+  box-shadow: var(--shadow-lg);
+  border: none;
+  overflow: hidden;
+  
+  &.urgent {
+    background: light-dark(
+      rgba(var(--danger-color-rgb), 0.05),
+      rgba(var(--danger-color-rgb), 0.15)
+    );
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+  }
+}
+
+.composer-popup p code, .composer-popup blockquote code {
+  background-color: var(--neutral-100);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
 }

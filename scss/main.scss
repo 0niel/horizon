@@ -1,5 +1,11 @@
 :root {
   --main-grid-gap: 0.5em;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 html:not(:has(.has-full-page-chat)) {
@@ -15,6 +21,7 @@ body {
   font-family: var(--font-family-sans);
   background-color: var(--background-color);
   color: var(--primary);
+  letter-spacing: -0.011em;
 
   @include breakpoint("mobile-extra-large") {
     background-color: var(--d-content-background);
@@ -24,6 +31,7 @@ body {
 html {
   background-color: var(--background-color);
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 #main-outlet-wrapper {
@@ -87,6 +95,7 @@ body:not(.has-full-page-chat, .wizard) {
       
       @media (min-width: 1280px) {
         border-radius: var(--d-border-radius);
+        box-shadow: var(--shadow);
       }
       
       html.composer-open & {
@@ -97,8 +106,12 @@ body:not(.has-full-page-chat, .wizard) {
         @media (min-width: 768px) {
           box-sizing: border-box;
           max-width: var(--d-max-width);
-          margin-inline: auto;
-          padding-inline: var(--spacing-8);
+          margin: 0 auto;
+          padding-inline: var(--spacing-4);
+          
+          @media (min-width: 1024px) {
+            padding-inline: var(--spacing-6);
+          }
         }
       }
     }
@@ -163,14 +176,224 @@ aside.onebox {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--neutral-300);
+  background-color: var(--neutral-400);
   border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--neutral-400);
+  
+  &:hover {
+    background-color: var(--neutral-500);
+  }
 }
 
 a, button, .btn {
   transition: all 0.2s ease;
+}
+
+// Typography enhancements
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary);
+  
+  a {
+    color: var(--primary);
+    
+    &:hover {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+  }
+}
+
+// Links
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: var(--link-color-hover);
+    text-decoration: underline;
+  }
+}
+
+// List styling
+ul, ol {
+  padding-left: 1.5rem;
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Table styling
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--spacing-4) 0;
+  font-size: 0.9375rem;
+  
+  th, td {
+    padding: var(--spacing-3);
+    border-bottom: 1px solid var(--neutral-200);
+    text-align: left;
+  }
+  
+  th {
+    font-weight: 600;
+    background-color: var(--neutral-50);
+    color: var(--primary);
+  }
+  
+  tr:hover {
+    background-color: var(--neutral-50);
+  }
+}
+
+// Select kit styling
+.select-kit {
+  .select-kit-header {
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--d-border-radius);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: var(--neutral-400);
+    }
+    
+    &:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.1);
+    }
+    
+    .d-icon {
+      color: var(--neutral-600);
+    }
+  }
+  
+  &.is-expanded .select-kit-header {
+    border-color: var(--accent-color);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .select-kit-collection {
+    border: 1px solid var(--accent-color);
+    border-top: none;
+    border-radius: 0 0 var(--d-border-radius) var(--d-border-radius);
+    box-shadow: var(--shadow-md);
+    
+    .select-kit-row {
+      padding: var(--spacing-2) var(--spacing-3);
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: var(--neutral-100);
+      }
+      
+      &.is-selected {
+        background-color: var(--d-selected);
+        
+        .d-icon, .name {
+          color: var(--accent-color);
+        }
+      }
+      
+      &.is-highlighted {
+        background-color: var(--d-hover);
+      }
+    }
+  }
+}
+
+// Loading spinner
+.spinner {
+  margin: 1rem 0;
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(var(--accent-color-rgb), 0.2);
+  border-left-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+  
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+// Alert messages
+.alert {
+  margin: var(--spacing-3) 0;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--d-border-radius);
+  border: none;
+  font-size: 0.9375rem;
+  
+  &.alert-info {
+    background-color: light-dark(
+      rgba(var(--info-color-rgb), 0.08),
+      rgba(var(--info-color-rgb), 0.15)
+    );
+    color: var(--info-color);
+  }
+  
+  &.alert-success {
+    background-color: light-dark(
+      rgba(var(--success-color-rgb), 0.08),
+      rgba(var(--success-color-rgb), 0.15)
+    );
+    color: var(--success-color);
+  }
+  
+  &.alert-error, &.alert-danger {
+    background-color: light-dark(
+      rgba(var(--danger-color-rgb), 0.08),
+      rgba(var(--danger-color-rgb), 0.15)
+    );
+    color: var(--danger-color);
+  }
+  
+  &.alert-warning {
+    background-color: light-dark(
+      rgba(var(--warning-color-rgb), 0.08),
+      rgba(var(--warning-color-rgb), 0.15)
+    );
+    color: var(--warning-color);
+  }
+}
+
+// Code blocks
+pre, code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875rem;
+  background-color: var(--neutral-100);
+  border-radius: 4px;
+}
+
+pre {
+  padding: var(--spacing-3);
+  margin: var(--spacing-3) 0;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+code {
+  padding: 0.2em 0.4em;
+}
+
+// Text selection
+::selection {
+  background-color: rgba(var(--accent-color-rgb), 0.2);
+  color: var(--primary);
+}
+
+html.dark {
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }

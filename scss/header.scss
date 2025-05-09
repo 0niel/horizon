@@ -1,9 +1,12 @@
 .d-header {
-  box-shadow: none;
-  background: var(--background-color);
-  border-bottom: 1px solid var(--neutral-200);
+  box-shadow: var(--shadow);
+  background: var(--d-content-background);
+  border-bottom: none;
   height: 60px;
   padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   
   @media (min-width: 1024px) {
     border-bottom: none;
@@ -12,50 +15,100 @@
   .wrap {
     padding: 0 var(--spacing-4);
     height: 100%;
+    display: flex;
+    align-items: center;
   }
   
   .title-wrapper {
     display: flex;
     align-items: center;
     height: 100%;
-  }
-
-  .d-icon-home {
-    color: var(--neutral-800);
-  }
-}
-
-// Header icons
-.d-header-icons {
-  display: flex;
-  
-  .icon {
-    border: none;
-    background: transparent;
-    transition: all 0.2s ease;
     
-    &:hover {
-      background-color: transparent;
-      transform: translateY(-1px);
+    .d-icon {
+      color: var(--primary);
+    }
+    
+    .title {
+      font-weight: 600;
+      
+      a {
+        color: var(--primary);
+        
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+    }
+  }
+  
+  // Header content
+  .d-header-icons {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: var(--spacing-1);
+    
+    .icon {
+      border: none;
+      background: transparent;
+      transition: all 0.2s ease;
+      height: 40px;
+      width: 40px;
+      border-radius: var(--d-border-radius);
+      position: relative;
+      
+      &:hover {
+        background-color: var(--neutral-100);
+        transform: translateY(-1px);
+        
+        .d-icon {
+          color: var(--accent-color);
+          transform: scale(1.1);
+        }
+      }
+      
+      &:focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
+        background-color: transparent;
+      }
       
       .d-icon {
-        color: var(--primary);
+        color: var(--neutral-700);
+        transition: all 0.2s ease;
+      }
+      
+      // Badge styling
+      .badge-notification {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        font-size: 0.6875rem;
+        min-width: 1rem;
+        height: 1rem;
+        padding: 0 0.25rem;
+        color: white;
+        background-color: var(--accent-color);
+        border: 2px solid var(--d-content-background);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
     
-    &:focus-visible {
-      outline: 2px solid var(--accent-color);
-      outline-offset: 2px;
-      background-color: transparent;
-    }
-    
-    .d-icon {
-      color: var(--neutral-700);
+    // Active icon state
+    .active .icon {
+      background-color: var(--d-hover);
+      
+      .d-icon {
+        color: var(--accent-color);
+      }
     }
   }
 }
 
-// User menu styling
+// User menu and notifications styling
 .user-menu .quick-access-panel,
 .user-notifications-list {
   border-radius: var(--d-border-radius);
@@ -64,7 +117,7 @@
   overflow: hidden;
   
   li {
-    padding: var(--spacing-2);
+    padding: var(--spacing-3);
     border-bottom: 1px solid var(--neutral-200);
     transition: background-color 0.2s ease;
     
@@ -74,12 +127,23 @@
     
     &.pending,
     &.unread {
-      background: var(--neutral-100);
+      background: var(--d-hover);
+      position: relative;
+      
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: var(--accent-color);
+      }
 
       .discourse-no-touch & {
         &:hover,
         &:focus {
-          background: var(--neutral-200);
+          background: var(--d-selected);
         }
       }
     }
@@ -90,13 +154,41 @@
   }
 }
 
-// Active tab styling
-.user-menu.revamped .tabs-list .btn.active {
-  background: var(--neutral-100);
-  color: var(--primary);
-  border-bottom: 2px solid var(--accent-color);
+// Tab styling
+.user-menu.revamped .tabs-list {
+  border-bottom: 1px solid var(--neutral-200);
+  padding: var(--spacing-1) var(--spacing-1) 0;
+  
+  .btn {
+    position: relative;
+    border-radius: var(--d-border-radius) var(--d-border-radius) 0 0;
+    margin-right: var(--spacing-1);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: var(--neutral-100);
+    }
+    
+    &.active {
+      background: transparent;
+      color: var(--accent-color);
+      font-weight: 600;
+      
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+        background-color: var(--accent-color);
+        border-radius: 2px 2px 0 0;
+      }
+    }
+  }
 }
 
+// Color selector dropdown
 .discourse-no-touch .interface-color-selector-content {
   border: none;
   border-radius: var(--d-border-radius);
@@ -107,35 +199,47 @@
     border: none;
     border-radius: 0;
     transition: background-color 0.2s ease;
+    padding: var(--spacing-3);
 
     &:hover {
       background-color: var(--neutral-100);
       box-shadow: none;
     }
+    
+    &.active {
+      background-color: var(--d-hover);
+      
+      .d-icon {
+        color: var(--accent-color);
+      }
+    }
   }
 }
 
-// Notifications
-.badge-notification {
-  color: white;
-  background-color: var(--accent-color);
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  padding: 0 0.3rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-
-.d-header-icons .badge-notification {
-  border-color: var(--background-color);
-}
-
-.header-dropdown-toggle.chat-header-icon .icon .chat-channel-unread-indicator {
-  border-color: var(--background-color);
+// Search input in header
+.search-header {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  .search-input {
+    border-radius: 9999px;
+    border: 1px solid var(--neutral-200);
+    background-color: var(--neutral-50);
+    height: 40px;
+    
+    &:focus-within {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.1);
+      background-color: var(--d-content-background);
+    }
+    
+    .searching {
+      .d-icon {
+        color: var(--accent-color);
+      }
+    }
+  }
 }
 
 body.login-page,
