@@ -1,29 +1,66 @@
 .user-color-palette-menu {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    padding: var(--spacing-2);
+  }
+
   &__item .btn-icon-text.btn-flat {
     background-color: var(--d-content-background);
     width: 100%;
     justify-content: flex-start;
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--d-border-radius);
+    transition: all 0.15s ease;
+    
+    svg {
+      color: var(--neutral-600);
+      margin-right: var(--spacing-2);
+    }
   }
 
   &__item .btn-icon-text.btn-flat:hover {
-    background-color: var(--d-selected);
-    box-shadow: none;
-    color: var(--primary);
-  }
-
-  &__item .btn-icon-text.btn-flat:hover svg {
-    color: var(--icon-color);
-  }
-
-  &__item .btn-icon-text.btn-flat svg {
-    color: var(--icon-color);
+    background-color: var(--neutral-100);
+    transform: translateY(-1px);
+    
+    svg {
+      color: var(--accent-color);
+    }
   }
 
   &__item-choice.active.btn-icon-text.btn-flat {
-    background-color: var(--d-selected);
+    background-color: var(--neutral-100);
+    font-weight: 500;
+    
+    svg {
+      color: var(--accent-color);
+    }
   }
 }
 
 .user-color-palette-content .fk-d-menu__inner-content {
   border: none;
+  border-radius: var(--d-border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar-footer-actions-button {
+  padding: var(--spacing-2);
+  border-radius: 50%;
+  transition: all 0.15s ease;
+  
+  &:hover {
+    background-color: var(--neutral-100);
+    transform: translateY(-1px);
+    
+    svg {
+      color: var(--accent-color);
+    }
+  }
+  
+  svg {
+    color: var(--neutral-600);
+  }
 }

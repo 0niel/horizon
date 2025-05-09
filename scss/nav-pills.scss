@@ -3,65 +3,95 @@
   top: var(--header-offset);
   background: var(--d-content-background);
   z-index: z("base");
-  padding: 1.5rem 0 1rem 0;
-  max-width: unset;
-
+  padding: var(--spacing-4) 0;
+  border-bottom: 1px solid var(--neutral-100);
+  
   .navigation-container {
-    gap: 1rem;
-
+    gap: var(--spacing-4);
+    align-items: center;
+    
     .category-breadcrumb {
       order: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
     }
   }
+}
 
-  .combo-box .combo-box-header {
-    // needs more specificity than just in the button file
-    background-color: var(--secondary);
-    border-radius: var(--d-border-radius-large);
-    border: 1px solid var(--primary-300);
-
-    &:hover {
-      border: 1px solid var(--accent-color);
-    }
-
-    &:focus-visible {
-      .discourse-no-touch & {
-        background: var(--secondary);
-        color: var(--accent-color);
-        box-shadow: 0 0 0 3px var(--button-box-shadow);
-
-        .d-icon {
-          color: var(--accent-color);
-        }
+// Navigation pills
+.nav-pills {
+  background: transparent;
+  
+  li {
+    margin-right: var(--spacing-2);
+    
+    a, button {
+      font-size: 0.875rem;
+      color: var(--neutral-700);
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--d-border-radius);
+      background: transparent;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      border: none;
+      
+      &:hover {
+        color: var(--primary);
+        background-color: var(--neutral-100);
+      }
+      
+      &.active {
+        color: var(--primary);
+        background-color: var(--neutral-100);
+        font-weight: 600;
       }
     }
   }
+}
 
-  .select-kit.combo-box.category-drop.has-selection
-    .category-drop-header:hover {
-    border-color: transparent;
+// Dropdown styling
+.combo-box .combo-box-header {
+  background-color: var(--d-content-background);
+  border-radius: var(--d-border-radius);
+  border: 1px solid var(--neutral-200);
+  padding: var(--spacing-2) var(--spacing-3);
+  transition: all 0.15s ease;
+  font-size: 0.875rem;
+  
+  &:hover, &:focus-visible {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 1px rgba(var(--accent-color-rgb), 0.2);
+  }
+  
+  .d-icon {
+    color: var(--neutral-600);
   }
 }
 
+// Select kit dropdown
 .select-kit.is-expanded .select-kit-body {
   border-radius: var(--d-border-radius);
   background-color: var(--d-content-background);
-}
-
-.nav-pills > li > a:hover,
-.nav-pills > li button:hover {
-  .discourse-no-touch & {
-    background: transparent;
-    color: var(--d-nav-color--hover);
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      height: var(--d-nav-underline-height);
-      background: var(--d-nav-color--hover);
+  border: none;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  
+  .select-kit-collection {
+    padding: var(--spacing-1) 0;
+  }
+  
+  .select-kit-row {
+    transition: background-color 0.15s ease;
+    
+    &:hover, &.is-highlighted {
+      background-color: var(--neutral-100);
+    }
+    
+    &.is-selected {
+      background-color: var(--neutral-100);
+      font-weight: 500;
     }
   }
 }

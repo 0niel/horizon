@@ -1,59 +1,86 @@
-#reply-control
-  .select-kit.dropdown-select-box.composer-actions
-  .select-kit-header {
-  border: 1px solid var(--tertiary-700);
-  background: var(--secondary);
-
-  &:hover {
-    .d-icon {
-      color: var(--accent-color);
+#reply-control {
+  border-radius: var(--d-border-radius) var(--d-border-radius) 0 0;
+  box-shadow: var(--shadow-lg);
+  background-color: var(--d-content-background);
+  
+  // Composer header
+  .reply-area {
+    padding: 0;
+    
+    .composer-fields {
+      padding: var(--spacing-3) var(--spacing-4);
+      border-bottom: 1px solid var(--neutral-200);
+    }
+  }
+  
+  // Dropdown actions menu
+  .select-kit.dropdown-select-box.composer-actions .select-kit-header {
+    border: 1px solid var(--neutral-300);
+    background: var(--d-content-background);
+    border-radius: var(--d-border-radius);
+    
+    &:hover {
+      border-color: var(--accent-color);
+      
+      .d-icon {
+        color: var(--accent-color);
+      }
     }
   }
 }
 
+// Non-draft composer
 #reply-control.hide-preview:not(.draft) {
-  @include breakpoint("mobile-extra-large", $rule: min-width) {
+  @media (min-width: 768px) {
     background: var(--d-content-background);
-    border-top-right-radius: var(--d-border-radius);
-    border-top-left-radius: var(--d-border-radius);
-
+    border-radius: var(--d-border-radius) var(--d-border-radius) 0 0;
+    
     .grippie {
-      background: var(--tertiary-low);
+      background: var(--neutral-200);
+      border-top: 1px solid var(--neutral-300);
     }
-
+    
     .user-selector,
     .title-and-category {
-      padding: 0 var(--spacing-inline-m);
-      width: calc(100% - var(--spacing-inline-m) * 2);
+      padding: 0 var(--spacing-4);
+      width: calc(100% - var(--spacing-4) * 2);
     }
-
+    
+    // Button bar
     .d-editor-button-bar {
-      padding: 3px var(--spacing-inline-m);
+      padding: var(--spacing-1) var(--spacing-4);
       border: none;
+      border-bottom: 1px solid var(--neutral-200);
     }
-
+    
+    // Editor area
     .d-editor-input {
-      padding: var(--spacing-inline-m);
+      padding: var(--spacing-4);
+      font-family: var(--font-family-sans);
+      line-height: 1.6;
     }
-
+    
     &:has(.in-focus) .grippie {
-      background: var(--tertiary);
+      background: var(--accent-color);
     }
-
+    
+    // Reply area spacing
     .reply-area {
       padding-inline: 0;
     }
-
+    
+    // Reply reference and submit panel
     .reply-to,
     .submit-panel {
-      padding-inline: var(--spacing-inline-sm);
+      padding-inline: var(--spacing-4);
     }
-
+    
+    // Editor wrapper
     .d-editor-textarea-wrapper {
       border: 0;
-      border-bottom: 1px solid var(--primary-low);
+      border-bottom: 1px solid var(--neutral-200);
       border-radius: 0;
-
+      
       &.in-focus {
         outline: 0;
       }
@@ -61,57 +88,81 @@
   }
 }
 
+// Editor button styles
 .d-editor-button-bar {
-  .btn:hover,
-  .toolbar-popup-menu-options.is-expanded {
-    .discourse-no-touch & {
-      background: var(--tertiary-very-low);
-      color: var(--accent-color);
-
-      .d-icon {
-        color: inherit;
-      }
-
-      // to have parity with regular select-kit styling used elsewhere
-      .select-kit-row {
+  .btn,
+  .toolbar-popup-menu-options {
+    border-radius: var(--d-border-radius);
+    
+    &:hover, 
+    &.is-expanded {
+      .discourse-no-touch & {
+        background: var(--neutral-100);
+        color: var(--primary);
+        
         .d-icon {
-          color: var(--primary-high);
+          color: var(--accent-color);
         }
-
-        &:hover {
+        
+        // Select kit rows
+        .select-kit-row {
           .d-icon {
-            color: var(--primary);
+            color: var(--neutral-600);
+          }
+          
+          &:hover {
+            .d-icon {
+              color: var(--primary);
+            }
           }
         }
       }
     }
   }
-
+  
   .toolbar-popup-menu-options.is-expanded {
     border-radius: var(--d-border-radius);
   }
 }
 
+// Translation selector
 .discourse-no-touch .translation-selector-dropdown {
   .select-kit-header.btn-default {
-    background: var(--background-color);
+    background: transparent;
+    border: 1px solid var(--neutral-300);
+    
+    &:hover {
+      border-color: var(--accent-color);
+    }
   }
 }
 
+// Translation mode
 #reply-control.composer-action-add_translation {
   .d-editor-preview .d-editor-translation-preview-wrapper {
-    border-color: var(--d-sidebar-border-color);
+    border-color: var(--neutral-300);
+    border-radius: var(--d-border-radius);
   }
-
+  
   .d-editor-preview .d-editor-translation-preview-wrapper__header {
     top: 6.5rem;
     padding: 0.25rem 0.75rem;
-    background: var(--background-color);
-    color: var(--accent-color);
-    border-radius: var(--d-border-radius-large);
+    background: var(--neutral-100);
+    color: var(--primary);
+    border-radius: var(--d-border-radius);
+    font-size: 0.875rem;
   }
-
+  
   .topic-title-translator input {
-    width: 47.25vw;
+    width: 100%;
+    max-width: 47vw;
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--d-border-radius);
+    
+    &:focus {
+      border-color: var(--accent-color);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.2);
+    }
   }
 }

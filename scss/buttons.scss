@@ -1,5 +1,5 @@
 :root {
-  --d-button-border-radius: 6.25rem;
+  --d-button-border-radius: 6px;
 }
 
 .discourse-no-touch .topic-body .actions .fade-out {
@@ -8,103 +8,117 @@
 
 .sidebar-new-topic-button__wrapper .topic-drafts-menu-trigger.btn.no-text {
   background: var(--accent-color);
+  border-radius: 0 var(--d-button-border-radius) var(--d-button-border-radius) 0;
 
   &:hover,
   &:focus-visible {
-    background: oklch(from var(--accent-color) 40% c h) !important;
-    box-shadow: none;
+    background-color: light-dark(
+      oklch(from var(--accent-color) l calc(c * 0.8) h),
+      oklch(from var(--accent-color) l calc(c * 1.2) h)
+    );
   }
 
   .d-icon {
-    color: var(--accent-text-color);
+    color: white;
   }
 }
 
 .discourse-no-touch .dropdown-menu__item .btn {
   background: transparent;
+  border-radius: 0;
+  
+  &:hover {
+    background-color: var(--neutral-100);
+  }
 }
 
-.discourse-no-touch .btn-default.sidebar-new-topic-button,
 .discourse-no-touch .btn-default,
 .discourse-no-touch .select-kit .select-kit-header.btn-default {
-  background: var(--primary-100);
-
+  background: var(--neutral-100);
+  color: var(--primary);
+  
   .d-icon {
-    color: var(--accent-color);
+    color: var(--neutral-600);
   }
-
+  
   &:hover {
-    border-color: transparent;
-    box-shadow: 0 0 8px 1px var(--button-box-shadow);
-    background: var(--d-content-background);
-    color: var(--accent-color);
-
-    .d-icon {
-      color: var(--accent-color);
-    }
-  }
-
-  &:focus-visible {
-    background: var(--d-content-background);
-    color: var(--accent-color);
-    box-shadow: 0 0 0 3px var(--button-box-shadow);
-
-    .d-icon {
-      color: var(--accent-color);
-    }
-  }
-
-  &:active:not(:hover, :focus) {
+    background: var(--neutral-200);
     color: var(--primary);
-    background: var(--tertiary-300);
-    background-image: none;
-
+    transform: translateY(-1px);
+    
     .d-icon {
-      color: var(--tertiary-high);
+      color: var(--primary);
     }
+  }
+  
+  &:focus-visible {
+    background: var(--neutral-200);
+    color: var(--primary);
+    
+    .d-icon {
+      color: var(--primary);
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+    background: var(--neutral-200);
   }
 }
 
 .btn-primary,
-#create-topic.btn,
-.discourse-no-touch .btn-default.ai-new-question-button {
+#create-topic.btn {
   background-color: var(--accent-color);
-  color: var(--accent-text-color);
-
+  color: white;
+  font-weight: 500;
+  
   .d-icon {
-    color: var(--accent-text-color);
+    color: white;
   }
-
+  
   &:hover {
-    .discourse-no-touch & {
-      background: light-dark(
-        oklch(from var(--accent-color) 40% c h),
-        oklch(from var(--accent-color) 50% c h)
-      );
-      box-shadow: 0 0 6px 1px var(--button-box-shadow);
-      color: var(--accent-text-color);
-
-      .d-icon {
-        color: var(--accent-text-color);
-      }
-    }
-  }
-
-  &:focus-visible {
-    .discourse-no-touch & {
-      background: light-dark(
-        oklch(from var(--accent-color) 40% c h),
-        oklch(from var(--accent-color) 50% c h)
-      );
-      box-shadow: 0 0 0 4px var(--button-box-shadow);
-      color: var(--accent-text-color);
-    }
-  }
-
-  &:active {
-    background: light-dark(
-      oklch(from var(--accent-color) 40% c h),
-      oklch(from var(--accent-color) 50% c h)
+    background-color: light-dark(
+      oklch(from var(--accent-color) l calc(c * 0.8) h),
+      oklch(from var(--accent-color) l calc(c * 1.2) h)
     );
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+  }
+  
+  &:focus-visible {
+    background-color: light-dark(
+      oklch(from var(--accent-color) l calc(c * 0.8) h),
+      oklch(from var(--accent-color) l calc(c * 1.2) h)
+    );
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+}
+
+// Icon buttons
+.btn-icon {
+  border-radius: 50%;
+  padding: 0.5rem;
+  height: 2rem;
+  width: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  .d-icon {
+    color: var(--neutral-600);
+  }
+  
+  &:hover {
+    background-color: var(--neutral-100);
+    
+    .d-icon {
+      color: var(--primary);
+    }
   }
 }
